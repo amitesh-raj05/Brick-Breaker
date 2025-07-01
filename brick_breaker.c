@@ -1,5 +1,7 @@
 #include <stdbool.h>
 #include <stdlib.h> // Include stdlib.h for rand()
+#include <string.h>
+
 
 #define KEY_BASE 0xFF200050
 #define LEDR_BASE 0xFF200000
@@ -7,7 +9,7 @@
 volatile int *KEY_PTR = (int *)KEY_BASE;
 
 void write_pixel(int x, int y, short colour) {
-    volatile short *vga_addr = (volatile short *)(0x08000000 + (y << 10) + (x << 1));
+    volatile short *vga_addr = (volatile short *)(0xC8000000 + (y << 10) + (x << 1));
     *vga_addr = colour;
 }
 
@@ -98,7 +100,7 @@ void start_game() {
         write_char(welcome_text_start + x, 8, welcome_text[x]);
     }
 
-    // Fourth part: " - By Anshika Srivastava"
+
     char author_text[] = " - By Anshika Srivastava";
     int author_text_length = strlen(author_text);
     int author_text_start = (80 - author_text_length) / 2;
@@ -368,7 +370,6 @@ int main() {
     line_y = 237;
     line_color = 0x07E0; // Green color
 
-    edge_capture;
      key1_pressed = false;
      key2_pressed = false;
 
